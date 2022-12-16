@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import QrCodeScreen from './src/screens/QrCodeScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import NavigationBar from './src/components/NavigationBar';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator tabBar={props => <NavigationBar {...props} />}>
+        <Tab.Screen name="Home" component={HomeScreen} options={{
+          headerStyle: { backgroundColor: '#122929', },
+          headerTintColor: 'white',
+          headerTitleStyle: { fontWeight: 'bold', },
+        }} />
+        <Tab.Screen name="QrCode" component={QrCodeScreen} options={{
+          headerStyle: { backgroundColor: '#122929', },
+          headerTintColor: 'white',
+          headerTitleStyle: { fontWeight: 'bold', },
+        }} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
